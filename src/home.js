@@ -1,7 +1,25 @@
+import { useEffect, useState } from "react";
+import BlogList from "./bloglist";
+
 const Home = () => {
+  const [blogs, setBlogs] = useState(null);
+  // const [name, setName] = useState("mario");
+  // const handelClick = () => {
+  //   setName("luiiii");
+  // };
+  useEffect(() => {
+    fetch("http://localhost:8000/blogs")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setBlogs(data);
+      });
+  }, []);
   return (
     <div className="home">
-      <h2>Home page</h2>
+      {blogs && <BlogList blogs={blogs} title="All Blogs" />}
     </div>
   );
 };
