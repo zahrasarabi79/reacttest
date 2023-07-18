@@ -4,7 +4,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <h1>poya site</h1>
-      <div className="links">
+      <div className="navbar">
         <Link to="/">Home</Link>
         <Link to="/create">New blog</Link>
       </div>
