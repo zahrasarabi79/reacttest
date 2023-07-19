@@ -1,15 +1,36 @@
+import axios from "axios";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 const Create = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("");
+  const history = useHistory();
+  const axiosInstance = axios.create({
+    baseURL: "http://localhost:8000/blogs",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    timeout: 5000,
+  });
+
+  async function getUsers(data) {
+    try {
+      const response = await axiosInstance.post("/", data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const handelSubmit = (e) => {
     e.preventDefault();
     const blog = { title, body, author };
-    console.log(blog);
+    getUsers(blog);
+    history.push("/");
   };
+
   return (
     <div className="create">
       <h2>Add a New Blog</h2>
